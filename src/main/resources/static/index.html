@@ -1,0 +1,413 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Exam Management System</div>
+
+   
+</header>
+
+
+<main>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="dashboard">
+
+        <h1>Dashboard</h1>
+
+        <p class="subtitle">
+            Manage questions, generate test papers and evaluate student attempts.
+        </p>
+
+        <div class="dashboard-grid">
+
+            <div class="card" onclick="showSection('questions')">
+                <div class="icon">📚</div>
+                <h2>Question Bank</h2>
+                <p>
+                    Add and manage MCQ questions with difficulty,
+                    topic and correct answers.
+                </p>
+                <button>Manage Questions</button>
+            </div>
+
+
+            <div class="card" onclick="showSection('generate')">
+                <div class="icon">📝</div>
+                <h2>Generate Test</h2>
+                <p>
+                    Create test papers using Easy, Medium
+                    and Hard question percentages.
+                </p>
+                <button>Generate Test</button>
+            </div>
+
+
+            <div class="card" onclick="showSection('tests')">
+                <div class="icon">🎯</div>
+                <h2>Attempt Test</h2>
+                <p>
+                    View available test papers and
+                    attempt them online.
+                </p>
+                <button>Attempt Test</button>
+            </div>
+
+
+            <div class="card" onclick="showSection('attempts')">
+                <div class="icon">📊</div>
+                <h2>Student Attempts</h2>
+                <p>
+                    View submitted attempts,
+                    scores and examination results.
+                </p>
+                <button>View Attempts</button>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ADD QUESTION -->
+    <section id="questions" class="page-section hidden">
+
+        <div class="section-header">
+            <div>
+                <h1>Question Bank</h1>
+                <p>Add and view questions.</p>
+            </div>
+
+            <button onclick="showSection('dashboard')" class="back-btn">
+                ← Dashboard
+            </button>
+        </div>
+
+
+        <div class="form-card">
+
+            <h2>Add Question</h2>
+
+            <form id="questionForm">
+
+                <input
+                    type="text"
+                    id="questionText"
+                    placeholder="Question"
+                    required
+                >
+
+                <input
+                    type="text"
+                    id="topic"
+                    placeholder="Topic"
+                    required
+                >
+
+                <select id="difficulty" required>
+                    <option value="">Select Difficulty</option>
+                    <option value="EASY">Easy</option>
+                    <option value="MEDIUM">Medium</option>
+                    <option value="HARD">Hard</option>
+                </select>
+
+                <select id="questionType" required>
+                    <option value="MCQ">MCQ</option>
+                </select>
+
+                <div class="two-column">
+
+                    <input
+                        type="text"
+                        id="optionA"
+                        placeholder="Option A"
+                        required
+                    >
+
+                    <input
+                        type="text"
+                        id="optionB"
+                        placeholder="Option B"
+                        required
+                    >
+
+                    <input
+                        type="text"
+                        id="optionC"
+                        placeholder="Option C"
+                        required
+                    >
+
+                    <input
+                        type="text"
+                        id="optionD"
+                        placeholder="Option D"
+                        required
+                    >
+
+                </div>
+
+                <select id="correctAnswer" required>
+                    <option value="">Select Correct Answer</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                </select>
+
+                <input
+                    type="number"
+                    id="unitId"
+                    placeholder="Unit ID"
+                    value="1"
+                    required
+                >
+
+                <button type="submit" class="primary-btn">
+                    Add Question
+                </button>
+
+            </form>
+
+            <p id="questionMessage"></p>
+
+        </div>
+
+
+        <div class="list-card">
+
+            <div class="list-header">
+                <h2>Existing Questions</h2>
+
+                <button
+                    onclick="loadQuestions()"
+                    class="small-btn">
+                    Refresh
+                </button>
+            </div>
+
+            <div id="questionsList">
+                Loading questions...
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- GENERATE TEST -->
+    <section id="generate" class="page-section hidden">
+
+        <div class="section-header">
+
+            <div>
+                <h1>Generate Test Paper</h1>
+                <p>Create a test using difficulty percentages.</p>
+            </div>
+
+            <button
+                onclick="showSection('dashboard')"
+                class="back-btn">
+                ← Dashboard
+            </button>
+
+        </div>
+
+
+        <div class="form-card">
+
+            <form id="testForm">
+
+                <input
+                    type="text"
+                    id="testTitle"
+                    placeholder="Test Paper Title"
+                    required
+                >
+
+                <input
+                    type="number"
+                    id="totalQuestions"
+                    placeholder="Total Questions"
+                    min="1"
+                    required
+                >
+
+                <div class="three-column">
+
+                    <input
+                        type="number"
+                        id="easyPercentage"
+                        placeholder="Easy %"
+                        min="0"
+                        max="100"
+                        value="40"
+                        required
+                    >
+
+                    <input
+                        type="number"
+                        id="mediumPercentage"
+                        placeholder="Medium %"
+                        min="0"
+                        max="100"
+                        value="40"
+                        required
+                    >
+
+                    <input
+                        type="number"
+                        id="hardPercentage"
+                        placeholder="Hard %"
+                        min="0"
+                        max="100"
+                        value="20"
+                        required
+                    >
+
+                </div>
+
+                <p id="percentageInfo">
+                    Total percentage: 100%
+                </p>
+
+                <button type="submit" class="primary-btn">
+                    Generate Test Paper
+                </button>
+
+            </form>
+
+            <p id="testMessage"></p>
+
+        </div>
+
+    </section>
+
+
+    <!-- TEST PAPERS / ATTEMPT -->
+    <section id="tests" class="page-section hidden">
+
+        <div class="section-header">
+
+            <div>
+                <h1>Test Papers</h1>
+                <p>View and attempt generated tests.</p>
+            </div>
+
+            <button
+                onclick="showSection('dashboard')"
+                class="back-btn">
+                ← Dashboard
+            </button>
+
+        </div>
+
+
+        <div id="testPapersList">
+            Loading test papers...
+        </div>
+
+    </section>
+
+
+    <!-- ATTEMPT TEST -->
+    <section id="attemptTest" class="page-section hidden">
+
+        <div class="section-header">
+
+            <div>
+                <h1 id="attemptTitle">Attempt Test</h1>
+                <p>Select your answers and submit the test.</p>
+            </div>
+
+            <button
+                onclick="showSection('tests')"
+                class="back-btn">
+                ← Test Papers
+            </button>
+
+        </div>
+
+
+        <div class="form-card">
+
+            <input
+                type="text"
+                id="studentName"
+                placeholder="Enter Student Name"
+                required
+            >
+
+        </div>
+
+
+        <div id="attemptQuestions"></div>
+
+        <button
+            onclick="submitTest()"
+            class="submit-test-btn">
+            Submit Test
+        </button>
+
+        <div id="attemptResult"></div>
+
+    </section>
+
+
+    <!-- ATTEMPTS -->
+    <section id="attempts" class="page-section hidden">
+
+        <div class="section-header">
+
+            <div>
+                <h1>Student Attempts</h1>
+                <p>View examination results.</p>
+            </div>
+
+            <button
+                onclick="showSection('dashboard')"
+                class="back-btn">
+                ← Dashboard
+            </button>
+
+        </div>
+
+
+        <div class="list-card">
+
+            <div class="list-header">
+
+                <h2>All Attempts</h2>
+
+                <button
+                    onclick="loadAttempts()"
+                    class="small-btn">
+                    Refresh
+                </button>
+
+            </div>
+
+            <div id="attemptsList">
+                Loading attempts...
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
